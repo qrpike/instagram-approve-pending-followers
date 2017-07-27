@@ -2,9 +2,12 @@
   "name": "instagram-approve-pending-followers",
   "version": "1.0.0",
   "description": "Approve all pending followers",
-  "main": "index.js",
+  "main": "./app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "approvePendingFollowers": "app.js"
   },
   "repository": {
     "type": "git",
@@ -12,6 +15,7 @@
   },
   "author": "",
   "license": "ISC",
+  "preferGlobal": true,
   "bugs": {
     "url": "https://github.com/qrpike/instagram-approve-pending-followers/issues"
   },
