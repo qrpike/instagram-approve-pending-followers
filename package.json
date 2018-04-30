@@ -21,9 +21,9 @@
   },
   "homepage": "https://github.com/qrpike/instagram-approve-pending-followers#readme",
   "dependencies": {
-    "bluebird": "^3.5.0",
-    "commander": "^2.11.0",
+    "bluebird": "^3.5.1",
+    "commander": "^2.15.1",
     "instagram-private-api": "git+https://github.com/stackdot/instagram-private-api.git",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.10"
   }
 }

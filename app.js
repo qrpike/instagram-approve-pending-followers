@@ -22,13 +22,20 @@ if( lodash.isEmpty( program.username ) || lodash.isEmpty( program.password ) ){
 var device = new Client.Device('default')
 var storage = new Client.CookieFileStorage(__dirname + `/cookies/${program.username}.json`)
 
+let pendingCount = 0
 function DoApprovals(){
 	return Client.Relationship.pendingFollowers( session )
 		.then(( pendingFollowers ) => {
 			console.log('Pending Count:', pendingFollowers.length)
+			pendingCount = pendingFollowers.length
 			return Promise.mapSeries( pendingFollowers, ( pending ) => {
 				console.log('Approving:', pending._params.username)
 				return Promise.delay(200).then( pending.approvePending.bind( pending ) )
+			}).then(() => {
+				if( pendingCount != 0 ){
+					console.log('Approvals done, still more so continue until pending = 0')
+					return DoApprovals()
+				}
 			})
 		})
 }
