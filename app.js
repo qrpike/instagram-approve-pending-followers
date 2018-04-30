@@ -8,6 +8,7 @@ var program = require('commander')
 let session = null
 
 const everyMinutes = 55
+let intervalFunc = null
 
 program
 	.version('0.1.0')
@@ -32,6 +33,7 @@ function DoApprovals(){
 				console.log('Approving:', pending._params.username)
 				return Promise.delay(200).then( pending.approvePending.bind( pending ) )
 			}).then(() => {
+				setIntervalExec()
 				if( pendingCount != 0 ){
 					console.log('Approvals done, still more so continue until pending = 0')
 					return DoApprovals()
@@ -40,16 +42,22 @@ function DoApprovals(){
 		})
 }
 
+
+function setIntervalExec(){
+	clearInterval( intervalFunc )
+	intervalFunc = setInterval(() => {
+		console.log('interval')
+		DoApprovals()
+	}, 1000 * 60 * everyMinutes )
+	DoApprovals()
+}
+
 // Login and go
 Client.Session.create(device, storage, program.username, program.password)
 	.then(( ses ) => {
 		session = ses
 
-		setInterval(() => {
-			console.log('interval')
-			DoApprovals()
-		}, 1000 * 60 * everyMinutes )
-		DoApprovals()
+		setIntervalExec()
 
 	})
 	.catch(( err ) => {
