@@ -49,16 +49,14 @@ function setIntervalExec(){
 		console.log('interval')
 		DoApprovals()
 	}, 1000 * 60 * everyMinutes )
-	DoApprovals()
 }
 
 // Login and go
 Client.Session.create(device, storage, program.username, program.password)
 	.then(( ses ) => {
 		session = ses
-
 		setIntervalExec()
-
+		DoApprovals()
 	})
 	.catch(( err ) => {
 		console.log('err:', err)
