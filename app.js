@@ -7,7 +7,7 @@ var Client = require('instagram-private-api').V1
 var program = require('commander')
 let session = null
 
-const everyMinutes = 55
+const everyMinutes = 10
 let intervalFunc = null
 
 program
@@ -33,19 +33,19 @@ function DoApprovals(){
 				console.log('Approving:', pending._params.username)
 				return Promise.delay(200).then( pending.approvePending.bind( pending ) )
 			}).then(() => {
-				setIntervalExec()
 				if( pendingCount != 0 ){
 					console.log('Approvals done, still more so continue until pending = 0')
 					return DoApprovals()
 				}
+				setTimeoutContinue()
 			})
 		})
 }
 
 
-function setIntervalExec(){
-	clearInterval( intervalFunc )
-	intervalFunc = setInterval(() => {
+function setTimeoutContinue(){
+	clearTimeout( intervalFunc )
+	intervalFunc = setTimeout(() => {
 		console.log('interval')
 		DoApprovals()
 	}, 1000 * 60 * everyMinutes )
@@ -55,7 +55,6 @@ function setIntervalExec(){
 Client.Session.create(device, storage, program.username, program.password)
 	.then(( ses ) => {
 		session = ses
-		setIntervalExec()
 		DoApprovals()
 	})
 	.catch(( err ) => {
