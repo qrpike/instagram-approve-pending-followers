@@ -21,7 +21,7 @@ if( lodash.isEmpty( program.username ) || lodash.isEmpty( program.password ) ){
 }
 
 var device = new Client.Device('default')
-var storage = new Client.CookieFileStorage(__dirname + `/cookies/${program.username}.json`)
+var storage = new Client.CookieFileStorage(`./cookie-${program.username}.json`)
 
 let pendingCount = 0
 function DoApprovals(){
