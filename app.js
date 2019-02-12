@@ -20,7 +20,7 @@ if( lodash.isEmpty( program.username ) || lodash.isEmpty( program.password ) ){
 	throw(new Error('Must supply -u {username} and -p {password}'))
 }
 
-var device = new Client.Device('default')
+var device = new Client.Device(program.username)
 var storage = new Client.CookieFileStorage(`./cookie-${program.username}.json`)
 
 let pendingCount = 0
@@ -39,6 +39,9 @@ function DoApprovals(){
 				}
 				setTimeoutContinue()
 			})
+		}).catch(( err ) => {
+			console.log('Do approvals error:', err)
+			setTimeoutContinue()
 		})
 }
 
@@ -47,7 +50,10 @@ function setTimeoutContinue(){
 	clearTimeout( intervalFunc )
 	intervalFunc = setTimeout(() => {
 		console.log('interval')
-		DoApprovals()
+		DoApprovals().catch(( err ) => {
+			console.log('Set timeouts error:', err)
+			setTimeoutContinue()
+		})
 	}, 1000 * 60 * everyMinutes )
 }
 
@@ -55,7 +61,10 @@ function setTimeoutContinue(){
 Client.Session.create(device, storage, program.username, program.password)
 	.then(( ses ) => {
 		session = ses
-		DoApprovals()
+		DoApprovals().catch(( err ) => {
+			console.log('Create sessions error:', err)
+			setTimeoutContinue()
+		})
 	})
 	.catch(( err ) => {
 		console.log('err:', err)
