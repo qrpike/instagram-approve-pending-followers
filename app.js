@@ -31,7 +31,7 @@ function DoApprovals(){
 			pendingCount = pendingFollowers.length
 			return Promise.mapSeries( pendingFollowers, ( pending ) => {
 				console.log('Approving:', pending._params.username)
-				return Promise.delay(200).then( pending.approvePending.bind( pending ) )
+				return Promise.delay(1500).then( pending.approvePending.bind( pending ) )
 			}).then(() => {
 				if( pendingCount != 0 ){
 					console.log('Approvals done, still more so continue until pending = 0')
@@ -41,7 +41,11 @@ function DoApprovals(){
 			})
 		}).catch(( err ) => {
 			console.log('Do approvals error:', err)
-			setTimeoutContinue()
+			console.log('Waiting 11sec before starting again...')
+			return Promise.delay(11500).then(() => {
+				console.log('Starting again...')
+				setTimeoutContinue()
+			})
 		})
 }
 
