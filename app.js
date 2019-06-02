@@ -44,7 +44,7 @@ function DoApprovals(){
 			console.log('Waiting 11sec before starting again...')
 			return Promise.delay(11500).then(() => {
 				console.log('Starting again...')
-				setTimeoutContinue()
+				DoApprovals()
 			})
 		})
 }
