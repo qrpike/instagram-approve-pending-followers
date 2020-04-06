@@ -23,7 +23,7 @@
   "dependencies": {
     "bluebird": "^3.5.3",
     "commander": "^2.19.0",
-    "instagram-private-api": "git+https://github.com/dilame/instagram-private-api.git",
+    "instagram-private-api": "^1.39.2",
     "lodash": "^4.17.11"
   }
 }
