@@ -49,28 +49,6 @@ async function DoApprovals(){
 		})
 	})
 
-	// return Client.Relationship.pendingFollowers( session )
-	// 	.then(( pendingFollowers ) => {
-	// 		console.log('Pending Count:', pendingFollowers.length)
-	// 		pendingCount = pendingFollowers.length
-	// 		return Promise.mapSeries( pendingFollowers, ( pending ) => {
-	// 			console.log('Approving:', pending._params.username)
-	// 			return Promise.delay(1500).then( pending.approvePending.bind( pending ) )
-	// 		}).then(() => {
-	// 			if( pendingCount != 0 ){
-	// 				console.log('Approvals done, still more so continue until pending = 0')
-	// 				return DoApprovals()
-	// 			}
-	// 			setTimeoutContinue()
-	// 		})
-	// 	}).catch(( err ) => {
-	// 		console.log('Do approvals error:', err)
-	// 		console.log('Waiting 11sec before starting again...')
-	// 		return Promise.delay(11500).then(() => {
-	// 			console.log('Starting again...')
-	// 			DoApprovals()
-	// 		})
-	// 	})
 }
 
 function randomIntFromInterval(min, max) { // min and max included 
