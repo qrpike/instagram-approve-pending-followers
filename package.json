@@ -24,6 +24,6 @@
     "bluebird": "^3.5.3",
     "commander": "^2.19.0",
     "instagram-private-api": "^1.39.2",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.21"
   }
 }
